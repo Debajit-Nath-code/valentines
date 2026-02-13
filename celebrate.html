@@ -9,6 +9,7 @@
     body {
         height: 100vh;
         margin: 0;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -20,6 +21,7 @@
     .cat {
         font-size: 6rem;
         animation: jump 0.5s infinite alternate;
+        z-index: 2;
     }
 
     @keyframes jump {
@@ -31,6 +33,23 @@
         font-size: 3.5rem;
         color: #ff4d6d;
         margin-top: 20px;
+        z-index: 2;
+    }
+
+    /* HEART RAIN */
+    .heart {
+        position: fixed;
+        top: -20px;
+        font-size: 1.5rem;
+        animation: fall linear forwards;
+        pointer-events: none;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh);
+            opacity: 0;
+        }
     }
 </style>
 </head>
@@ -42,6 +61,27 @@
 <audio autoplay loop>
     <source src="yay.mp3" type="audio/mpeg">
 </audio>
+
+<script>
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+
+    // Create hearts continuously
+    setInterval(createHeart, 300);
+</script>
 
 </body>
 </html>
