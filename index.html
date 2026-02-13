@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine?</title>
 
 <style>
@@ -17,22 +17,15 @@
         overflow: hidden;
     }
 
-    /* Mobile-only */
-    @media (min-width: 768px) {
-        body {
-            display: none;
-        }
-    }
-
     .container {
         text-align: center;
     }
 
     h1 {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
         color: #b0004b;
         margin-bottom: 40px;
-        padding: 0 10px;
+        padding: 0 15px;
     }
 
     button {
@@ -89,7 +82,7 @@
         yesBtn.style.transform = `scale(${scale})`;
     }
 
-    noBtn.addEventListener("touchstart", moveNo);
+    noBtn.addEventListener("mouseover", moveNo);
     noBtn.addEventListener("click", moveNo);
 
     yesBtn.addEventListener("click", () => {
