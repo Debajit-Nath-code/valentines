@@ -9,6 +9,7 @@
     body {
         height: 100vh;
         margin: 0;
+        overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -16,26 +17,33 @@
         font-family: 'Georgia', serif;
     }
 
-    .envelope-container {
+    .scene {
         position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* ENVELOPE */
+    .envelope-container {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
         width: 320px;
         height: 220px;
         cursor: pointer;
     }
 
-    /* ENVELOPE BASE */
     .envelope {
         position: absolute;
         width: 100%;
         height: 100%;
         background: #ffb6c1;
-        border-radius: 10px;
-        overflow: hidden;
+        border-radius: 12px;
         box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         z-index: 2;
     }
 
-    /* FLAP */
     .flap {
         position: absolute;
         top: 0;
@@ -51,17 +59,15 @@
     /* LETTER */
     .letter {
         position: absolute;
-        width: 90%;
-        height: auto;
+        width: 300px;
         background: white;
-        left: 5%;
-        bottom: 10px;
-        padding: 25px;
-        border-radius: 10px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        transform: translateY(100%);
-        transition: transform 1s ease;
-        z-index: 1;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        left: 50%;
+        transform: translate(-50%, 120%);
+        transition: transform 1.2s ease;
+        z-index: 5;
         line-height: 1.6;
         color: #4a001f;
     }
@@ -78,56 +84,58 @@
     }
 
     .open .letter {
-        transform: translateY(-140%);
+        transform: translate(-50%, -50%);
+        top: 50%;
     }
 
     .hint {
         position: absolute;
-        bottom: -40px;
+        bottom: -45px;
         width: 100%;
         text-align: center;
-        font-size: 1rem;
         color: #7a0033;
-        opacity: 0.8;
+        font-size: 1rem;
+        opacity: 0.85;
     }
 </style>
 </head>
 <body>
 
-<div class="envelope-container" onclick="openEnvelope()">
-    <div class="envelope"></div>
-    <div class="flap"></div>
+<div class="scene">
+    <div class="envelope-container" onclick="openEnvelope()">
+        <div class="envelope"></div>
+        <div class="flap"></div>
 
-    <div class="letter">
-        <h2>Dear Dipa ❤️</h2>
+        <div class="letter">
+            <h2>Dear Dipa ❤️</h2>
 
-        <p>
-            From the moment you said yes, my heart has been doing
-            exactly what this website is doing — celebrating,
-            jumping, and smiling endlessly.
-        </p>
+            <p>
+                From the moment you said yes, my heart has been
+                celebrating just like this page.
+            </p>
 
-        <p>
-            You make ordinary days feel special and every moment
-            brighter just by being you.
-        </p>
+            <p>
+                You turn simple moments into something special
+                and every day feels brighter with you.
+            </p>
 
-        <p>
-            Thank you for being my Valentine 💖
-        </p>
+            <p>
+                Thank you for being my Valentine.
+            </p>
 
-        <p style="text-align:right;">
-            — Yours
-        </p>
+            <p style="text-align:right;">— Yours 💖</p>
+        </div>
+
+        <div class="hint">Tap the envelope 💌</div>
     </div>
-
-    <div class="hint">Tap to open 💌</div>
 </div>
 
 <script>
     function openEnvelope() {
-        document.querySelector(".envelope-container").classList.add("open");
-        document.querySelector(".hint").style.display = "none";
+        const container = document.querySelector(".envelope-container");
+        container.classList.add("open");
+        container.querySelector(".hint").style.display = "none";
+        container.onclick = null;
     }
 </script>
 
