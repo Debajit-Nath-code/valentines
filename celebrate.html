@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YAY!</title>
 
 <style>
@@ -32,22 +32,54 @@
     h1 {
         font-size: 3.5rem;
         color: #ff4d6d;
-        margin-top: 20px;
+        margin: 20px 0;
         z-index: 2;
+    }
+
+    .letter-btn {
+        padding: 14px 28px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 30px;
+        background: #ff4d6d;
+        color: white;
+        cursor: pointer;
+        z-index: 2;
+        transition: transform 0.3s ease;
+    }
+
+    .letter-btn:hover {
+        transform: scale(1.1);
     }
 
     /* HEART RAIN */
     .heart {
         position: fixed;
         top: -20px;
-        font-size: 1.5rem;
-        animation: fall linear forwards;
         pointer-events: none;
+        animation: fall linear forwards;
     }
 
     @keyframes fall {
         to {
             transform: translateY(110vh);
+            opacity: 0;
+        }
+    }
+
+    /* CONFETTI */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        top: 50%;
+        left: 50%;
+        animation: explode 1.2s ease-out forwards;
+    }
+
+    @keyframes explode {
+        to {
+            transform: translate(var(--x), var(--y)) rotate(720deg);
             opacity: 0;
         }
     }
@@ -58,29 +90,52 @@
 <div class="cat">🐱</div>
 <h1>YAY ❤️</h1>
 
+<button class="letter-btn" onclick="goToLetter()">Letter for u &lt;3</button>
+
 <audio autoplay loop>
     <source src="yay.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+    /* HEART RAIN */
     function createHeart() {
         const heart = document.createElement("div");
-        heart.classList.add("heart");
+        heart.className = "heart";
         heart.innerHTML = "❤️";
 
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
         heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
 
         document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
 
-        setTimeout(() => {
-            heart.remove();
-        }, 5000);
+    /* CONFETTI BURST */
+    function confettiBurst() {
+        for (let i = 0; i < 80; i++) {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+
+            const x = (Math.random() - 0.5) * 600 + "px";
+            const y = (Math.random() - 0.5) * 600 + "px";
+
+            confetti.style.backgroundColor =
+                `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.setProperty("--x", x);
+            confetti.style.setProperty("--y", y);
+
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 1200);
+        }
     }
 
-    // Create hearts continuously
-    setInterval(createHeart, 300);
+    confettiBurst();
+
+    function goToLetter() {
+        window.location.href = "letter.html";
+    }
 </script>
 
 </body>
